@@ -4,6 +4,7 @@ public class FlashMechanic : MonoBehaviour
 {
 
     public GameObject Enemigo;
+    public SpawnManager spawn;
 
 
 
@@ -13,7 +14,7 @@ public class FlashMechanic : MonoBehaviour
         if (other.gameObject.CompareTag("Flash"))
         {
 
-            Enemigo.SetActive(false);
+            spawn.Teleport();
             Debug.Log("Desaparecio el pibe");
             
         }
