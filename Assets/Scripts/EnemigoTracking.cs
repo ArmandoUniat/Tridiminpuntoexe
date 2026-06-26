@@ -32,7 +32,6 @@ public class EnemigoTracking : MonoBehaviour
         agent.stoppingDistance = stopDistance;
         agent.speed = chaseSpeed;
 
-        // Arranca quieto
         agent.ResetPath();
     }
 
