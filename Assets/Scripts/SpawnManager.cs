@@ -2,34 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PageGeneration : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     public Transform[] spawnSpots;
-    public GameObject Page;
+    public GameObject page;
     private int randomSpawnSpot;
-    private int x = 0;
+
+    public float tiempoVisible = 5f;
+    public float tiempoOculto = 5f;
+    public Transform spawn1;
+
+    EnemigoTracking enemyT;
+
+
     void Start()
     {
-        randomSpawnSpot = Random.Range(0, spawnSpots.Length);
+        enemyT = GetComponent<EnemigoTracking>();
+        StartCoroutine(ShowNHide());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator ShowNHide()
     {
-        PageGen();
+        Show();
+
+        yield return new WaitForSeconds(tiempoVisible);
+
+        Teleport();
+
+        yield return new WaitForSeconds(tiempoOculto);
+
+        StartCoroutine(ShowNHide());
     }
 
-    void PageGen()
+    void Show()
     {
-        randomSpawnSpot = Random.Range(0, spawnSpots.Length);
-        while (x <= 9)
+        bool Chasing = enemyT.isChasing;
+
+        if(Chasing == false)
         {
-
-
-            Instantiate(Page, spawnSpots[randomSpawnSpot].position, Quaternion.identity);
-            x++;
+            Teleport();
         }
+        page.SetActive(true);
+    }
+
+    
+
+    void Teleport()
+    {
+        int numRand = Random.Range(0, spawnSpots.Length);
+        page.transform.position = spawnSpots[numRand].position;
+      
+
+        //Transform spawns = spawnSpots[numRand];
+        Debug.Log("Esto se repite cada 5 segundos");
+        return;
     }
 }

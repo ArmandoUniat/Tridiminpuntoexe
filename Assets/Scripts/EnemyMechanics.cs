@@ -3,13 +3,8 @@ using UnityEngine;
 
 public class EnemyMechanics : MonoBehaviour
 {
-
     
-    
-    public Animator anim;
-
-
-    
+    public Animator anim;  
 
 // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,13 +20,7 @@ public class EnemyMechanics : MonoBehaviour
             anim.SetTrigger("Damage");
             Debug.Log("Trigger");
         }
-
     }
-
-
-
-
-   
 
     // Update is called once per frame
     void Update()
