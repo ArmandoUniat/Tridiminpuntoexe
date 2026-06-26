@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Animations;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
-public class RigidbodyFPSController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement Settings")]
     public float walkSpeed = 6f;
@@ -23,13 +24,20 @@ public class RigidbodyFPSController : MonoBehaviour
     private float verticalRotation = 0f;
     private bool isGrounded;
 
+
+    [Header("Flasheo")]
+    public GameObject polaroid;
+       
+
+
     void Start()
     {
-        // Get and configure Rigidbody
+        
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true; // Prevents the capsule from tipping over
+        rb.freezeRotation = true;
+       
 
-        // Lock and hide the cursor for FPS feel
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -38,7 +46,25 @@ public class RigidbodyFPSController : MonoBehaviour
     {
         HandleLook();
         HandleJump();
+
+
+        if (Input.GetMouseButton(0))
+        {
+
+
+            polaroid.SetActive(true);
+
+
+        }
+        else
+        {
+            
+            polaroid.SetActive(false);
+
+        }
+
     }
+
 
     void FixedUpdate()
     {
@@ -47,11 +73,11 @@ public class RigidbodyFPSController : MonoBehaviour
 
     private void HandleLook()
     {
-        // Get mouse inputs
+        
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // Rotate the camera vertically (clamped)
+        
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, upperLookLimit, lowerLookLimit);
         playerCamera.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
