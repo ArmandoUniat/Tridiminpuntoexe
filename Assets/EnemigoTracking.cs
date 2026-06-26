@@ -5,25 +5,15 @@ public class EnemigoTracking : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
-    public Transform[] patrolPoints;
 
     [Header("Ranges")]
-    public float chaseRadius = 10f;   
-    public float loseRadius = 14f;    
-    public float stopDistance = 1.6f; 
+    public float chaseRadius = 10f;
+    public float stopDistance = 1.6f;
 
-    [Header("Speeds")]
-    public float patrolSpeed = 2.2f;
+    [Header("Speed")]
     public float chaseSpeed = 3.8f;
 
-    [Header("Patrol")]
-    public float pointTolerance = 0.4f;
-
     private NavMeshAgent agent;
-    private int patrolIndex = 0;
-
-    private enum State { Patrol, Chase }
-    private State state = State.Patrol;
 
     void Awake()
     {
@@ -40,9 +30,10 @@ public class EnemigoTracking : MonoBehaviour
         }
 
         agent.stoppingDistance = stopDistance;
-        agent.speed = patrolSpeed;
+        agent.speed = chaseSpeed;
 
-        GoToNextPatrolPoint();
+        // Arranca quieto
+        agent.ResetPath();
     }
 
     void Update()
@@ -51,20 +42,7 @@ public class EnemigoTracking : MonoBehaviour
 
         float dist = Vector3.Distance(transform.position, player.position);
 
-        if (state == State.Patrol && dist <= chaseRadius)
-        {
-            state = State.Chase;
-            agent.speed = chaseSpeed;
-        }
-        else if (state == State.Chase && dist >= loseRadius)
-        {
-            state = State.Patrol;
-            agent.speed = patrolSpeed;
-            GoToNextPatrolPoint();
-        }
-
-
-        if (state == State.Chase)
+        if (dist <= chaseRadius)
         {
             agent.SetDestination(player.position);
 
@@ -76,30 +54,9 @@ public class EnemigoTracking : MonoBehaviour
         }
         else
         {
-            if (patrolPoints == null || patrolPoints.Length == 0) return;
-
-            if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance + pointTolerance)
-            {
-                GoToNextPatrolPoint();
-            }
+            // Fuera del radio: quieto
+            agent.ResetPath();
         }
-    }
-
-    private void GoToNextPatrolPoint()
-    {
-        if (patrolPoints == null || patrolPoints.Length == 0) return;
-
-        int safe = 0;
-        while (patrolPoints[patrolIndex] == null && safe < patrolPoints.Length)
-        {
-            patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
-            safe++;
-        }
-
-        if (patrolPoints[patrolIndex] != null)
-            agent.SetDestination(patrolPoints[patrolIndex].position);
-
-        patrolIndex = (patrolIndex + 1) % patrolPoints.Length;
     }
 
     private void FaceTarget(Vector3 targetPos)
@@ -116,7 +73,5 @@ public class EnemigoTracking : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, chaseRadius);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, loseRadius);
     }
 }
