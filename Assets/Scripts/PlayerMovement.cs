@@ -1,43 +1,99 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CapsuleCollider))]
+public class RigidbodyFPSController : MonoBehaviour
 {
-    public CharacterController controller;
-    public Transform cam;
+    [Header("Movement Settings")]
+    public float walkSpeed = 6f;
+    public float jumpForce = 5f;
 
-    public float speed = 6f;
-    public float mouseSensitivity = 1000f;
+    [Header("Camera Settings")]
+    public Transform playerCamera;
+    public float mouseSensitivity = 2f;
+    public float upperLookLimit = -80f;
+    public float lowerLookLimit = 80f;
 
-    float xRotation = 0f;
-    float yVelocity;
+    [Header("Ground Check Settings")]
+    public Transform groundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+
+    private Rigidbody rb;
+    private float verticalRotation = 0f;
+    private bool isGrounded;
 
     void Start()
     {
+        // Get and configure Rigidbody
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true; // Prevents the capsule from tipping over
+
+        // Lock and hide the cursor for FPS feel
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        HandleLook();
+        HandleJump();
+    }
 
+    void FixedUpdate()
+    {
+        HandleMovement();
+    }
+
+    private void HandleLook()
+    {
+        // Get mouse inputs
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+
+        // Rotate the camera vertically (clamped)
+        verticalRotation -= mouseY;
+        verticalRotation = Mathf.Clamp(verticalRotation, upperLookLimit, lowerLookLimit);
+        playerCamera.localRotation = Quaternion.Euler(verticalRotation, 0f, 0f);
+
+        // Rotate the player object horizontally
         transform.Rotate(Vector3.up * mouseX);
+    }
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+    private void HandleMovement()
+    {
+        // Get keyboard inputs (WASD / Arrow Keys)
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
 
-        cam.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        // Calculate move direction relative to the direction the player is facing
+        Vector3 moveDirection = (transform.forward * moveZ + transform.right * moveX).normalized;
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        // Apply movement velocity while preserving current vertical physics velocity (gravity/falling)
+        Vector3 targetVelocity = moveDirection * walkSpeed;
+        rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
+    }
 
-        Vector3 direction = transform.forward * z + transform.right * x;
+    private void HandleJump()
+    {
+        // Perform a small sphere check at the feet of the player to see if they are touching ground
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (direction.magnitude > 1f)
-            direction.Normalize();
+        // Check if jump key is pressed and character is on the ground
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            // Apply instant upward force for the jump
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
+        }
+    }
 
-        Vector3 move = direction * speed + Vector3.up * yVelocity;
-
-        controller.Move(move * Time.deltaTime);
+    // Optional: Visualizes the ground check radius in the Unity Editor scene view
+    private void OnDrawGizmosSelected()
+    {
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundCheck.position, groundDistance);
+        }
     }
 }
