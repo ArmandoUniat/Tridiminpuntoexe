@@ -15,6 +15,8 @@ public class EnemigoTracking : MonoBehaviour
 
     private NavMeshAgent agent;
 
+    public bool isChasing = false;
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -43,6 +45,8 @@ public class EnemigoTracking : MonoBehaviour
 
         if (dist <= chaseRadius)
         {
+            isChasing = true;
+
             agent.SetDestination(player.position);
 
             if (dist <= stopDistance + 0.2f)
