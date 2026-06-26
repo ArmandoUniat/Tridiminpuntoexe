@@ -520,7 +520,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: ee43bffa16b33e64a86c2de75b5e93af, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &792977945
 Transform:
@@ -807,16 +807,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemigoTracking
   player: {fileID: 2130028774}
-  patrolPoints:
-  - {fileID: 1431615658}
-  - {fileID: 1698151747}
-  - {fileID: 395096787}
   chaseRadius: 10
-  loseRadius: 14
   stopDistance: 1.6
-  patrolSpeed: 2.2
   chaseSpeed: 3.8
-  pointTolerance: 0.4
 --- !u!195 &1351903638
 NavMeshAgent:
   m_ObjectHideFlags: 0
