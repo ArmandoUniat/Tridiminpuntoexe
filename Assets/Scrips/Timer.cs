@@ -12,9 +12,9 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        timer = timer - 1;
+        timer += Time.deltaTime;
 
-        textoTimer.text = "" + timer.ToString();
+        textoTimer.text = "" + timer.ToString("f2");
 
 
     }
