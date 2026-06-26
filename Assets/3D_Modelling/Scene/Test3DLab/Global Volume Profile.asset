@@ -94,6 +94,7 @@ MonoBehaviour:
   - {fileID: 5878531236682725096}
   - {fileID: 254252256231166631}
   - {fileID: -1329243986050446058}
+  - {fileID: 7795097452999378043}
 --- !u!114 &254252256231166631
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -284,6 +285,31 @@ MonoBehaviour:
   highlightsEnd:
     m_OverrideState: 0
     m_Value: 1
+--- !u!114 &7795097452999378043
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6b00fcf518bb94a90b408492e07b44, type: 3}
+  m_Name: FilmGrain
+  m_EditorClassIdentifier: Unity.RenderPipelines.HighDefinition.Runtime::UnityEngine.Rendering.HighDefinition.FilmGrain
+  active: 1
+  type:
+    m_OverrideState: 1
+    m_Value: 10
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.172
+  response:
+    m_OverrideState: 1
+    m_Value: 0.606
+  texture:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: a0f3accea7a50ce4daf20cf631ff5235, type: 3}
 --- !u!114 &8191109134869855018
 MonoBehaviour:
   m_ObjectHideFlags: 3
