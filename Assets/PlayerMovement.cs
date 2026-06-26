@@ -7,12 +7,9 @@ public class PlayerMovement : MonoBehaviour
 
     public float speed = 6f;
     public float mouseSensitivity = 1000f;
-    public float gravity = -9.81f;
 
     float xRotation = 0f;
     float yVelocity;
-
-    public float jumpHeight = 2;
 
     void Start()
     {
