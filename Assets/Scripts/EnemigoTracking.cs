@@ -7,7 +7,7 @@ public class EnemigoTracking : MonoBehaviour
     public Transform player;
 
     [Header("Ranges")]
-    public float chaseRadius = 10f;
+    public float rangoDeteccion = 200.0f;
     public float stopDistance = 1.6f;
 
     [Header("Speed")]
@@ -43,7 +43,7 @@ public class EnemigoTracking : MonoBehaviour
 
         float dist = Vector3.Distance(transform.position, player.position);
 
-        if (dist <= chaseRadius)
+        if (dist <= rangoDeteccion)
         {
             isChasing = true;
 
@@ -72,9 +72,4 @@ public class EnemigoTracking : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, look, Time.deltaTime * 8f);
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, chaseRadius);
-    }
 }
