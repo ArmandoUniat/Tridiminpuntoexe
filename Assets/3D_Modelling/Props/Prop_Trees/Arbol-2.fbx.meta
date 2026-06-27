@@ -3,7 +3,12 @@ guid: 90011af9e6a9b42489ee9ad9580daa0b
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pCylinder1
+    second: {fileID: 2100000, guid: e831d070ec5295d49baf2e127e37cb50, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -56,7 +61,7 @@ ModelImporter:
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
     optimizeBones: 1
-    generateMeshLods: 0
+    generateMeshLods: 1
     meshLodGenerationFlags: 0
     maximumMeshLod: -1
     meshOptimizationFlags: -1
