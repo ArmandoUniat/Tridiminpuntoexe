@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -12,42 +13,43 @@ public class SpawnManager : MonoBehaviour
     public float tiempoOculto = 5f;
     public Transform spawn1;
 
-    EnemigoTracking enemyT;
+    public EnemigoTracking enemyT;
 
 
     void Start()
     {
-        enemyT = GetComponent<EnemigoTracking>();
+        if(enemyT != null)
+        {
+            Debug.Log(enemyT);
+        }
+
         StartCoroutine(ShowNHide());
     }
 
     IEnumerator ShowNHide()
     {
-        Show();
+        bool Chasing = enemyT.isChasing;
+        if (Chasing == false)
+        {
+            Show();
 
-        yield return new WaitForSeconds(tiempoVisible);
+            yield return new WaitForSeconds(tiempoVisible);
 
-        Teleport();
+            Teleport();
 
-        yield return new WaitForSeconds(tiempoOculto);
+            yield return new WaitForSeconds(tiempoOculto);
 
-        StartCoroutine(ShowNHide());
+            StartCoroutine(ShowNHide());
+        }
     }
 
     void Show()
     {
-        bool Chasing = enemyT.isChasing;
-
-        if(Chasing == false)
-        {
-            Teleport();
-        }
+        Teleport();
         page.SetActive(true);
     }
 
-    
-
-    void Teleport()
+    public void Teleport()
     {
         int numRand = Random.Range(0, spawnSpots.Length);
         page.transform.position = spawnSpots[numRand].position;
