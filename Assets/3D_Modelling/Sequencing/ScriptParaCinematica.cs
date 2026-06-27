@@ -5,6 +5,7 @@ public class ScriptParaCinematica : MonoBehaviour
 {
 
 
+    private float tiempoEnPantalla = 0f;
     public string nombreSiguienteEscena = "EscenaInGame";
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -22,9 +23,14 @@ public class ScriptParaCinematica : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+ 
     void Update()
-    {
-        CambiarAlJuego();
+   {
+        tiempoEnPantalla += Time.deltaTime;
+
+        if (tiempoEnPantalla > 1f && Input.anyKeyDown)
+        {
+            CambiarAlJuego();
+        }
     }
 }
