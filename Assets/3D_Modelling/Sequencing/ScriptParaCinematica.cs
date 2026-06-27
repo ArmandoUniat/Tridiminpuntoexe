@@ -5,7 +5,7 @@ public class ScriptParaCinematica : MonoBehaviour
 {
 
 
-    [SerializeField]private string nombreSiguienteEscena = "MenuPrincipal";
+    public string nombreSiguienteEscena = "EscenaInGame";
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
 

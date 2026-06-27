@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/3D_Modelling/Scene/EscenaParaAnimacion.unity
+    guid: 9211e50bf142aba4ebd2e15fb98adf34
+  - enabled: 1
+    path: Assets/3D_Modelling/Scene/EscenaInGame.unity
+    guid: 46a70d941b4e44143b89953df52eda70
+  - enabled: 0
     path: Assets/Scenes/OutdoorsScene.unity
     guid: 8124e5870f4fd4c779e7a5f994e84ad1
   m_configObjects:
