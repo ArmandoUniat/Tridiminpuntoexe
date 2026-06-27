@@ -7,7 +7,7 @@ public class EnemigoTracking : MonoBehaviour
     public Transform player;
 
     [Header("Ranges")]
-    public float rangoDeteccion = 200.0f;
+    public float rangoDeteccion = 25.0f;
     public float stopDistance = 1.6f;
 
     [Header("Speed")]

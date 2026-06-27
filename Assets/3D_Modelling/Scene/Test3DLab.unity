@@ -2567,7 +2567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashMechanic
   Enemigo: {fileID: 787453554}
-  spawn: {fileID: 0}
+  spawn: {fileID: 1107799648}
 --- !u!1001 &413794571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13035,7 +13035,7 @@ GameObject:
   - component: {fileID: 1913274604}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Flash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13074,8 +13074,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.75
-  m_Center: {x: -0.34, y: 0, z: 0}
+  m_Radius: 1.9180646
+  m_Center: {x: -0.3399965, y: 0, z: -1.1680645}
 --- !u!1001 &1933596911
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14935,7 +14935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 80c10b9998480ca409a7e18c7475a78e, type: 3}
       propertyPath: m_TagString
-      value: Flash
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1809415047288981673, guid: 80c10b9998480ca409a7e18c7475a78e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
