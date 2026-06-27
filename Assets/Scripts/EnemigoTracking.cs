@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +17,9 @@ public class EnemigoTracking : MonoBehaviour
     private NavMeshAgent agent;
 
     public bool isChasing = false;
+
+    public float stunDuration = 2f;
+    bool isStunned = false;
 
     void Awake()
     {
@@ -37,6 +41,32 @@ public class EnemigoTracking : MonoBehaviour
         agent.ResetPath();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Flash") && !isStunned)
+        {
+            StartCoroutine(StunRoutine());
+        }
+    }
+
+    IEnumerator StunRoutine()
+    {
+        isStunned = true;
+
+        if(agent != null)
+        {
+            agent.isStopped = true;
+        }
+
+        yield return new WaitForSeconds(stunDuration);
+
+        if(agent != null)
+        {
+            agent.isStopped = false;
+        }
+
+        isStunned = false;
+    }
     void Update()
     {
         if (player == null) return;

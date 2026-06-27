@@ -1,12 +1,9 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class FlashMechanic : MonoBehaviour
 {
 
     public GameObject Enemigo;
-    public SpawnManager spawn;
-
-
 
 
     void OnTriggerEnter(Collider other)
@@ -14,7 +11,7 @@ public class FlashMechanic : MonoBehaviour
         if (other.gameObject.CompareTag("Flash"))
         {
 
-            spawn.Teleport();
+            
             Debug.Log("Desaparecio el pibe");
             
         }
@@ -32,4 +29,4 @@ public class FlashMechanic : MonoBehaviour
     {
         
     }
-}
+}*/
